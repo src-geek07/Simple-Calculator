@@ -3,6 +3,8 @@
 A clean, glassmorphism-styled calculator built with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies — just three files.
 
 ---
+## Live Demo : 
+https://src-geek07.github.io/Simple-Calculator/
 
 ## 📁 File Structure
 

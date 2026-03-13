@@ -1,0 +1,249 @@
+/* ===========================
+   CSS Variables & Reset
+=========================== */
+:root {
+  --bg-from: #e0c3fc;
+  --bg-to: #8ec5fc;
+
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: rgba(120, 100, 180, 0.18);
+
+  --btn-num-bg: rgba(255, 255, 255, 0.55);
+  --btn-num-hover: rgba(255, 255, 255, 0.8);
+  --btn-op-bg: rgba(180, 140, 255, 0.28);
+  --btn-op-hover: rgba(180, 140, 255, 0.5);
+  --btn-clr-bg: rgba(255, 140, 160, 0.32);
+  --btn-clr-hover: rgba(255, 100, 130, 0.5);
+  --btn-eq-bg: rgba(100, 180, 255, 0.55);
+  --btn-eq-hover: rgba(60, 150, 255, 0.75);
+
+  --text-primary: #2d2040;
+  --text-display: #1a1030;
+  --text-op: #5a2d9c;
+  --text-eq: #ffffff;
+  --text-clr: #9c1a2d;
+
+  --radius-card: 28px;
+  --radius-btn: 16px;
+  --font-display: 'DM Mono', monospace;
+  --font-ui: 'Nunito', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===========================
+   Body & Background
+=========================== */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-from), var(--bg-to));
+  font-family: var(--font-ui);
+
+  /* subtle moving mesh background */
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===========================
+   Wrapper
+=========================== */
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ===========================
+   Calculator Card
+=========================== */
+.calculator {
+  width: 320px;
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  padding: 24px 20px 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 40px var(--glass-shadow),
+    0 1.5px 0 var(--glass-border) inset;
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.88) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ===========================
+   Display
+=========================== */
+.display-area {
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
+  padding: 14px 18px 10px;
+  margin-bottom: 18px;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.expression {
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: rgba(60, 40, 100, 0.45);
+  min-height: 18px;
+  letter-spacing: 0.5px;
+  word-break: break-all;
+  text-align: right;
+  transition: all 0.2s ease;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 500;
+  color: var(--text-display);
+  letter-spacing: -1px;
+  word-break: break-all;
+  text-align: right;
+  transition: all 0.15s ease;
+  line-height: 1.2;
+}
+
+.display.shrink {
+  font-size: 28px;
+}
+
+/* ===========================
+   Button Grid
+=========================== */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* ===========================
+   Buttons — Base
+=========================== */
+.btn {
+  height: 60px;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  color: var(--text-primary);
+  transition:
+    transform 0.1s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+  box-shadow: 0 2px 8px rgba(100, 80, 160, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:active {
+  transform: scale(0.93);
+  box-shadow: none;
+}
+
+/* ripple on click */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255,255,255,0.3);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.btn:active::after {
+  opacity: 1;
+}
+
+/* ===========================
+   Button Variants
+=========================== */
+.btn.num {
+  background: var(--btn-num-bg);
+  backdrop-filter: blur(8px);
+}
+.btn.num:hover {
+  background: var(--btn-num-hover);
+}
+
+.btn.op {
+  background: var(--btn-op-bg);
+  color: var(--text-op);
+  font-size: 20px;
+}
+.btn.op:hover {
+  background: var(--btn-op-hover);
+}
+
+.btn.clr {
+  background: var(--btn-clr-bg);
+  color: var(--text-clr);
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+.btn.clr:hover {
+  background: var(--btn-clr-hover);
+  color: white;
+}
+
+.btn.del {
+  background: var(--btn-op-bg);
+  color: var(--text-op);
+  font-size: 18px;
+}
+.btn.del:hover {
+  background: var(--btn-op-hover);
+}
+
+.btn.eq {
+  background: var(--btn-eq-bg);
+  color: var(--text-eq);
+  font-size: 22px;
+  box-shadow: 0 4px 16px rgba(80, 150, 255, 0.3);
+}
+.btn.eq:hover {
+  background: var(--btn-eq-hover);
+  box-shadow: 0 6px 20px rgba(60, 130, 255, 0.45);
+}
+
+/* span 2 columns */
+.span2 {
+  grid-column: span 2;
+}
+
+/* ===========================
+   Error state
+=========================== */
+.display.error {
+  color: #c0392b;
+  font-size: 22px;
+}
